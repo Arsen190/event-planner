@@ -6,7 +6,6 @@ import { useEventStore } from '@/stores/eventStore'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { Calendar, MapPin, StickyNote, Type } from 'lucide-react'
 
 export default function AddEventPage() {
   const addEvent = useEventStore((state) => state.addEvent)
@@ -19,60 +18,47 @@ export default function AddEventPage() {
 
   const handleSubmit = () => {
     if (!title || !date || !location) return
-    addEvent({ title, description, date, location })
-    router.push('/events')
+
+    const newEvent = {
+      id: Date.now(), // или UUID, если нужно
+      title,
+      description,
+      date,
+      location,
+    }
+
+    addEvent(newEvent)
+    router.push('/events') // переход к списку событий
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 p-4">
-      <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-2xl max-w-xl w-full space-y-6">
-        <h1 className="text-3xl font-extrabold text-center text-zinc-800 dark:text-white">Добавить событие</h1>
+    <div className="min-h-screen bg-gradient-to-br from-[#e0eafc] to-[#cfdef3] flex items-center justify-center px-4 py-10">
+      <div className="bg-white dark:bg-zinc-900 p-8 rounded-3xl shadow-xl w-full max-w-xl space-y-4">
+        <h1 className="text-3xl font-bold text-center text-zinc-800 dark:text-white">Новое событие</h1>
 
-        <div className="relative">
-          <Type className="absolute left-3 top-3 text-zinc-400" size={18} />
-          <Input
-            className="pl-10"
-            placeholder="Название"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
+        <Input
+          placeholder="Название"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <Textarea
+          placeholder="Описание"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <Input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+        <Input
+          placeholder="Место проведения"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
 
-        <div className="relative">
-          <StickyNote className="absolute left-3 top-3 text-zinc-400" size={18} />
-          <Textarea
-            className="pl-10"
-            placeholder="Описание"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-
-        <div className="relative">
-          <Calendar className="absolute left-3 top-3 text-zinc-400" size={18} />
-          <Input
-            className="pl-10"
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
-
-        <div className="relative">
-          <MapPin className="absolute left-3 top-3 text-zinc-400" size={18} />
-          <Input
-            className="pl-10"
-            placeholder="Место проведения"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </div>
-
-        <Button
-          onClick={handleSubmit}
-          className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:brightness-110 transition duration-200"
-        >
-          Создать событие
+        <Button className="w-full mt-4" onClick={handleSubmit}>
+          Добавить
         </Button>
       </div>
     </div>

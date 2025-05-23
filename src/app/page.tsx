@@ -1,12 +1,14 @@
+'use client'
+
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 p-4">
-      <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-2xl max-w-xl w-full space-y-4">
-        <h1 className="text-3xl font-extrabold text-center text-zinc-800 dark:text-white">Добро пожаловать!</h1>
-        <p className="text-center text-zinc-600 dark:text-zinc-300">
-          Это личный планировщик событий. Добавляй, просматривай и управляй своими мероприятиями с лёгкостью.
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#e0eafc] to-[#cfdef3] p-6">
+      <div className="bg-white rounded-xl shadow-md p-10 max-w-2xl w-full text-center space-y-6">
+        <h1 className="text-4xl font-bold text-gray-800">Личный планировщик дел</h1>
+        <p className="text-gray-600 text-lg">
+          Управляй своими событиями, задачами и планами с лёгкостью. Добавляй, редактируй и будь продуктивнее каждый день.
         </p>
       </div>
-    </div>
+    </main>
   )
 }

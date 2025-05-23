@@ -14,6 +14,7 @@ interface EventState {
   events: Event[]
   addEvent: (event: Omit<Event, 'id'>) => void
   removeEvent: (id: string) => void
+  updateEvent: (updatedEvent: Event) => void  // <-- добавлено
   getEventById: (id: string) => Event | undefined
 }
 
@@ -26,6 +27,12 @@ export const useEventStore = create<EventState>((set, get) => ({
   removeEvent: (id) =>
     set((state) => ({
       events: state.events.filter((event) => event.id !== id),
+    })),
+  updateEvent: (updatedEvent) =>
+    set((state) => ({
+      events: state.events.map((event) =>
+        event.id === updatedEvent.id ? updatedEvent : event
+      ),
     })),
   getEventById: (id) => get().events.find((event) => event.id === id),
 }))
